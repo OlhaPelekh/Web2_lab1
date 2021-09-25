@@ -1,25 +1,23 @@
-function getPermutations(string) {
-  var results = []
+function permutation(string) {
+  if (string.length < 2) 
+  return string 
 
-  if (string.length === 1) 
-  {
-    results.push(string)
-    return results
-  }
+  let permutations = [] 
+  for (let i = 0; i < string.length; i++) {
+    let char = string[i]
 
-  for (var i = 0; i < string.length; i++) 
-  {
-    var firstChar = string[i]
-    var otherChar = string.substring(0, i) + string.substring(i + 1)
-    var otherPermutations = getPermutations(otherChar)
-    
-    for (var j = 0; j < otherPermutations.length; j++) {
-      results.push(firstChar + otherPermutations[j])
-    }
+    if (string.indexOf(char) != i) 
+      continue
+
+      let remainingString = string.slice(0, i) + string.slice(i + 1, string.length)
+
+    for (let subPermutation of permutation(remainingString))
+      permutations.push(char + subPermutation)
   }
-  return results;
+  return permutations
 }
 
-var permutation = getPermutations('Cat').filter((el, idx, self) => (self.indexOf(el) === idx))
-console.log("Total permutation: "+permutation.length)
-console.log(permutation)
+let myString ='Cat'
+ permutations = permutation(myString)
+ for (permutation of permutations)
+   console.log(permutation) 

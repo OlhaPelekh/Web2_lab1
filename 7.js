@@ -76,18 +76,20 @@ module.exports = {
     },
 
 
-    find: function find(fullname, collection) {
+    find: function find(name, collection) {
 
         function equalName(element) {
-            return element.fullname == fullname
+            return element.name == name
         }
 
-        let index = collection.find(equalName)
+        let index = collection.findIndex(equalName)
 
-        if (index != -1){
-            return collection[index]}
-            else{
-        return null}
+        if (index != -1) {
+            return collection[index]
+        }
+        else {
+            return null
+        }
     },
 
     purchaseTicketByPassenger: function purchaseTicketByPassenger(passenger, train, ticket, travel, ticketSoldCollection) {
@@ -95,13 +97,45 @@ module.exports = {
         ticketSoldCollection.push(element)
     },
 
-    changeTicketFromTrainToTrain: function changeTicketFromTrainToTrain(ticket, newTrain, ticketSoldCollection) {
-        let currId = ticket.currId
+    changeTicketFromTrainToTrain: function changeTicketFromTrainToTrain(tmp, newTrain, ticketSoldCollection) {
+        let currId = tmp.currId
         function equalId(element) {
-            return element.ticketId == currId
+            return element.currId == currId
         }
         let index = ticketSoldCollection.findIndex(equalId)
         if (index != -1)
-        ticketSoldCollection[index].trainId = newTrain.currId
+            ticketSoldCollection[index].trainId = newTrain.name
     },
+
+    findMINMAX: function findMINMAX(ticketSoldCollection, min = true) {
+        train_tickets = {};
+
+        ticketSoldCollection.forEach(ticket => {
+            if (train_tickets[ticket.trainId]) {
+                train_tickets[ticket.trainId]++
+            } else {
+                train_tickets[ticket.trainId] = 1
+            }
+        });
+
+        value = 0;
+        values = Object.values(train_tickets);
+
+        if (min == true) {
+            value = Math.min(...values)
+        } else {
+            value = Math.max(...values)
+        }
+
+        trains = []
+
+        for (var key in train_tickets){
+            if (value == train_tickets[key] && !trains.includes(value)) {
+                trains.push(key)
+            }
+        }
+
+        return trains
+    }
 }
+

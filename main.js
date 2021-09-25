@@ -1,7 +1,7 @@
 'use strict'
 console.log('Hello Node + JS')
 
-const { Passenger, Ticket, Train, TicketSold, add, edit, remove, find, purchaseTicketByPassenger, changeTicketFromTrainToTrain } = require('./7.js')
+const { Passenger, Ticket, Train, TicketSold, add, edit, remove, find, purchaseTicketByPassenger, changeTicketFromTrainToTrain, findMINMAX } = require('./7.js')
 let passengerCollection = Array()
 let ticketCollection = Array()
 let trainCollection = Array()
@@ -56,10 +56,18 @@ add(ticket3, ticketCollection)
 console.log(ticketCollection)
 
 purchaseTicketByPassenger(passenger1, train1, ticket1, TicketSold, ticketSoldCollection)
+purchaseTicketByPassenger(passenger2, train1, ticket2, TicketSold, ticketSoldCollection)
+purchaseTicketByPassenger(passenger1, train3, ticket3, TicketSold, ticketSoldCollection)
+purchaseTicketByPassenger(passenger1, train2, ticket1, TicketSold, ticketSoldCollection)
+purchaseTicketByPassenger(passenger2, train2, ticket2, TicketSold, ticketSoldCollection)
+purchaseTicketByPassenger(passenger2, train3, ticket3, TicketSold, ticketSoldCollection)
 console.log(ticketSoldCollection)
 
 changeTicketFromTrainToTrain(ticket1,train3,ticketSoldCollection)
 console.log(ticketSoldCollection)
+
+console.log(findMINMAX(ticketSoldCollection))
+console.log(findMINMAX(ticketSoldCollection,false))
 
 remove(1, ticketSoldCollection)
 if (ticketSoldCollection = []) {
